@@ -15,7 +15,7 @@ public class GameLogic implements PlayableLogic {
 
    public GameLogic(){
        Board=new Disc[BoardSize][BoardSize];
-       currentplayer=firstplayer;
+       IsfirstPlayerTurn=true;
        moves=new Stack<>();
 
    }
