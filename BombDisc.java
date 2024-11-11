@@ -4,6 +4,7 @@ public class BombDisc implements Disc {
     public BombDisc(Player owner){
         Owner=owner;
     }
+
     @Override
     public Player getOwner() {
         return Owner;
