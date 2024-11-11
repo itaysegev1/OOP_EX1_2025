@@ -5,13 +5,20 @@ import java.util.Stack;
 public class GameLogic implements PlayableLogic {
 
     private final int BoardSize=8;
-    private final Disc [][] Board=new Disc[BoardSize][BoardSize];
+    private  Disc [][] Board;
     private List<Position> ValidMoves;
-    private Stack<Move> moves=new Stack<>();
+    private Stack<Move> moves;
     private Player firstplayer;
    private Player secondplayer;
    private Player currentplayer;
    private boolean IsfirstPlayerTurn;
+
+   public GameLogic(){
+       Board=new Disc[BoardSize][BoardSize];
+       currentplayer=firstplayer;
+       moves=new Stack<>();
+
+   }
     @Override
     public boolean locate_disc(Position a, Disc disc) {
 
@@ -71,6 +78,7 @@ public class GameLogic implements PlayableLogic {
 
     @Override
     public void reset() {
+        Board=new Disc[BoardSize][BoardSize];
         currentplayer=firstplayer;
         Disc s1=new SimpleDisc(firstplayer);
         Disc s2=new SimpleDisc(firstplayer);
