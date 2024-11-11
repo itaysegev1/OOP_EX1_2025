@@ -25,6 +25,7 @@ public class GameLogic implements PlayableLogic {
             moves.add(move);
             Board[a.row()][a.col()] = disc;
             if(isFirstPlayerTurn()) {
+
                 IsfirstPlayerTurn=false;
             } else{
                 IsfirstPlayerTurn=true;
