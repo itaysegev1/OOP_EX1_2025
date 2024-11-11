@@ -10,7 +10,6 @@ public class GameLogic implements PlayableLogic {
     private Stack<Move> moves;
     private Player firstplayer;
    private Player secondplayer;
-   private Player currentplayer;
    private boolean IsfirstPlayerTurn;
 
    public GameLogic(){
@@ -21,8 +20,9 @@ public class GameLogic implements PlayableLogic {
    }
     @Override
     public boolean locate_disc(Position a, Disc disc) {
-        if (Board[a.row()][a.col()] == null){
-
+        if (Board[a.row()][a.col()] == null && isinvalid(a)){
+            Move move=new Move(a,disc);
+            moves.add(move);
             Board[a.row()][a.col()] = disc;
             if(isFirstPlayerTurn()) {
                 IsfirstPlayerTurn=false;
@@ -48,17 +48,32 @@ public class GameLogic implements PlayableLogic {
     @Override
     public List<Position> ValidMoves() {
         ValidMoves=new ArrayList<Position>();
-        Position p=new Position(5,4);
-        ValidMoves.add(p);
+        for (int i = 0; i < BoardSize; i++) {
+            for (int j = 0; j < BoardSize; j++) {
+                if (Board[i][j] == null) {
+                    if(countFlips(new Position(i,j))>0){
+                        ValidMoves.add(new Position(i,j));
+                    }
+                }
+            }
+
+        }
         return ValidMoves;
     }
 
     @Override
     public int countFlips(Position a) {
-        int count =0;
-        int row=a.row();
-        int col=a.col();
-       return 0;
+        int total=0;
+        Player p;
+        if (IsfirstPlayerTurn)
+            p=firstplayer;
+        else
+            p=secondplayer;
+        int [][] directions= {{-1,0},{1,0},{0,1},{0,-1},{1,1},{1,-1},{-1,-1},{-1,1}};
+        for (int i = 0; i < 8; i++) {
+                total+=directflips(a,directions[i][0],directions[i][1],p);
+            }
+       return total;
     }
 
     @Override
@@ -91,7 +106,7 @@ public class GameLogic implements PlayableLogic {
     @Override
     public void reset() {
         Board=new Disc[BoardSize][BoardSize];
-        currentplayer=firstplayer;
+        IsfirstPlayerTurn=true;
         Disc s1=new SimpleDisc(firstplayer);
         Disc s2=new SimpleDisc(firstplayer);
         Disc s3=new SimpleDisc(secondplayer);
@@ -108,6 +123,35 @@ public class GameLogic implements PlayableLogic {
         if (IsfirstPlayerTurn){IsfirstPlayerTurn=false;}
         else {IsfirstPlayerTurn=true;}
         Move last=moves.pop();
-        List<Disc> lastturn=last.getFlipped();
+        Board[last.position().row()][last.position().col()]=null;
+    }
+
+    private int directflips(Position a, int directrow, int directcol,Player player){
+       int flips=0;
+       int r=a.row()+directrow;
+       int c=a.col()+directcol;
+       while((r<BoardSize && c<BoardSize)&& (r>=0&&c>=0)){
+           if(Board[r][c]==null)
+               return 0;
+           if(Board[r][c].getOwner()!=player) {
+               flips++;
+               r+=directrow;
+               c+=directcol;
+           }
+           else
+               return flips;
+       }
+       return 0;
+    }
+
+    private boolean isinvalid(Position a){
+       int r=a.row();
+       int c=a.col();
+        for (int i = 0; i < ValidMoves.size(); i++) {
+            Position current=ValidMoves.get(i);
+            if(a.row()==current.row() && a.col()==current.col())
+                return true;
+        }
+        return false;
     }
 }
