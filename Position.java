@@ -16,6 +16,4 @@ public class Position {
         return Col;
     }
 
-
-
 }

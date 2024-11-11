@@ -16,7 +16,6 @@ public class GameLogic implements PlayableLogic {
        Board=new Disc[BoardSize][BoardSize];
        IsfirstPlayerTurn=true;
        moves=new Stack<>();
-
    }
     @Override
     public boolean locate_disc(Position a, Disc disc) {

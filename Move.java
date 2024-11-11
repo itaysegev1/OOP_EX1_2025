@@ -9,7 +9,6 @@ public class Move {
     public Move(Position pos, Disc disc){
         _pos=pos;
         _disc=disc;
-
     }
     public Position position(){
         return _pos;
