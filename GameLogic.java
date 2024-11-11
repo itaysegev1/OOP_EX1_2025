@@ -21,7 +21,16 @@ public class GameLogic implements PlayableLogic {
    }
     @Override
     public boolean locate_disc(Position a, Disc disc) {
+        if (Board[a.row()][a.col()] == null){
 
+            Board[a.row()][a.col()] = disc;
+            if(isFirstPlayerTurn()) {
+                IsfirstPlayerTurn=false;
+            } else{
+                IsfirstPlayerTurn=true;
+            }
+            return true;
+        }
         return false;
     }
 
@@ -46,7 +55,10 @@ public class GameLogic implements PlayableLogic {
 
     @Override
     public int countFlips(Position a) {
-        return 0;
+        int count =0;
+        int row=a.row();
+        int col=a.col();
+       return 0;
     }
 
     @Override
