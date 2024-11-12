@@ -7,4 +7,11 @@ public class HumanPlayer extends Player{
     boolean isHuman() {
         return true;
     }
+
+    public String tostring(){
+        if(isPlayerOne){
+            return "Player 1";
+        }
+        return "Player 2";
+    }
 }
