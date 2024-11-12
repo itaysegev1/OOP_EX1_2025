@@ -100,13 +100,14 @@ public class Flip {
         }
         while(!bomblist.isEmpty()){
             Position pos=bomblist.removeLast();
-            list.addAll(flipbomb(p,pos,Board));
+            list.addAll(flipbomb(pos,Board));
         }
         System.out.println();
         return list;
     }
 
-    private static List<Disc> flipbomb(Player p, Position pos, Disc[][] Board){
+    private static List<Disc> flipbomb( Position pos, Disc[][] Board){
+        Player p=Board[pos.row()][pos.col()].getOwner();
         List<Disc> a=new ArrayList<Disc>();
         int[][] directions = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}, {1, 1}, {1, -1}, {-1, -1}, {-1, 1}};
         for (int i = 0; i <8 ; i++) {
