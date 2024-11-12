@@ -26,4 +26,5 @@ public class Move {
     public List<Disc> getflips() {
         return listofflips;
     }
+
 }

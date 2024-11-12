@@ -11,6 +11,7 @@ public class GameLogic implements PlayableLogic {
     private Player firstplayer;
     private Player secondplayer;
     private boolean IsfirstPlayerTurn;
+    private static List<Disc>Bombes;
 
     public GameLogic() {
         Board = new Disc[BoardSize][BoardSize];
@@ -110,7 +111,7 @@ public class GameLogic implements PlayableLogic {
     public void reset() {
         Board = new Disc[BoardSize][BoardSize];
         IsfirstPlayerTurn = true;
-        moves.empty();
+        moves=new Stack<Move>();
         Disc s1 = new SimpleDisc(firstplayer);
         Disc s2 = new SimpleDisc(firstplayer);
         Disc s3 = new SimpleDisc(secondplayer);
@@ -119,6 +120,7 @@ public class GameLogic implements PlayableLogic {
         Board[4][4] = s2;
         Board[3][4] = s3;
         Board[4][3] = s4;
+
 
     }
 
