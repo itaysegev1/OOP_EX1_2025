@@ -3,7 +3,6 @@ import java.util.List;
 
 
 public class Flip {
-    private static List<Disc>Bombes;
     public static int directflips(Position a, int directrow, int directcol, Player player, int BoardSize, Disc[][]Board) {
         int flips = 0;
         int r = a.row() + directrow;
@@ -73,6 +72,7 @@ public class Flip {
 
 
     public static List<Disc> flipaftermove(Position a, Disc[][]Board, Player firstplayer, Player secondplayer, boolean IsfirstPlayerTurn) {
+        List<Position>bomblist=new ArrayList<>();
         List<Disc> list= new ArrayList<>();
         Player p;
         if (IsfirstPlayerTurn)
@@ -85,6 +85,9 @@ public class Flip {
                 int r=a.row()+directions[i][0];
                 int c=a.col()+directions[i][1];
                 while(Board[r][c].getOwner()!=p){
+                    if(Board[r][c].getOwner().equals("\uD83D\uDCA3") && !bomblist.contains(Board[r][c])){
+                        bomblist.add(new Position(r,c));
+                    }
                     Board[r][c].setOwner(p);
                     if(!Board[r][c].getType().equals("⭕")) {
                         System.out.println(p.toString() + "flipped the " + Board[r][c].getType() + " in ( " + r + " , " + c + " )");
@@ -94,6 +97,10 @@ public class Flip {
                     c+=directions[i][1];
                 }
             }
+        }
+        while(!bomblist.isEmpty()){
+            Position pos=bomblist.removeLast();
+            list.addAll(flipbomb(p,pos,Board));
         }
         System.out.println();
         return list;
@@ -105,19 +112,19 @@ public class Flip {
         for (int i = 0; i <8 ; i++) {
             int r= pos.row()+directions[i][0];
             int c=pos.col()+directions[i][1];
-            if (!sameplayer(Board[r][c].getOwner(),p)){
-
+            if(c<Board.length&& c>0 &&r>0 && r<Board.length){
+                if(Board[r][c]!=null){
+                    if (Board[r][c].getOwner()!=p) {
+                        if(!Board[r][c].getType().equals("⭕")){
+                            a.add(Board[r][c]);
+                            Board[r][c].setOwner(p);
+                            System.out.println(p.toString()+ " flipped the "+Board[r][c].getType()+ " in "+ "( "+r+" , "+c+" )");
+                        }
+                    }
+                }
             }
         }
         return a;
-    }
-
-    private static boolean sameplayer(Player p1, Player p2){
-        if(p1.isPlayerOne() && p2.isPlayerOne())
-            return true;
-        if ((!p1.isPlayerOne())&& (!p2.isPlayerOne()))
-            return true;
-        return false;
     }
 
     private static int countBombflips(Position pos, Player player,int BoardSize, Disc[][]Board,List<Disc>bomblist){
