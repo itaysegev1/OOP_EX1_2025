@@ -140,12 +140,11 @@ public class GameLogic implements PlayableLogic {
             while (!a.isEmpty()) {
                 Disc d = a.removeLast();
                 p = d.getOwner();
-                if (!d.getType().equals("\uD83D\uDCA3"))
-                    if (p.isPlayerOne) {
-                        d.setOwner(secondplayer);
-                    } else {
-                        d.setOwner(firstplayer);
-                    }
+                if (p.isPlayerOne) {
+                    d.setOwner(secondplayer);
+                } else {
+                    d.setOwner(firstplayer);
+                }
             }
 
         }
