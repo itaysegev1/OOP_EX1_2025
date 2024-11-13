@@ -26,6 +26,12 @@ public class GameLogic implements PlayableLogic {
             Move move = new Move(a, disc);
             moves.add(move);
             Board[a.row()][a.col()] = disc;
+            if(isFirstPlayerTurn()){
+                System.out.println("Player 1 played a " + disc.getType() + " in a "+new Position(a.row(),a.col()).toString());
+            }
+            else{
+                System.out.println("Player 2 played a " + disc.getType() + " in a "+new Position(a.row(),a.col()).toString());
+            }
             move.setflips(Flip.flipaftermove(a,Board,firstplayer,secondplayer,IsfirstPlayerTurn));
             if (isFirstPlayerTurn()) {
 
@@ -33,8 +39,10 @@ public class GameLogic implements PlayableLogic {
             } else {
                 IsfirstPlayerTurn = true;
             }
+            System.out.println();
             return true;
         }
+        System.out.println();
         return false;
     }
 

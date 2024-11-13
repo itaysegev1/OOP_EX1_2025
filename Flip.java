@@ -1,8 +1,12 @@
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Flip is a Class that charged on all the rules of flipping discs
+ * and printing the fliping actions
+ */
 public class Flip {
+
     public static int directflips(Position a, int directrow, int directcol, Player player, int BoardSize, Disc[][]Board) {
         int flips = 0;
         int r = a.row() + directrow;
@@ -85,7 +89,7 @@ public class Flip {
                 int r=a.row()+directions[i][0];
                 int c=a.col()+directions[i][1];
                 while(Board[r][c].getOwner()!=p){
-                    if(Board[r][c].getOwner().equals("\uD83D\uDCA3") && !bomblist.contains(Board[r][c])){
+                    if(Board[r][c].getType().equals("\uD83D\uDCA3") && !bomblist.contains(Board[r][c])){
                         bomblist.add(new Position(r,c));
                     }
                     Board[r][c].setOwner(p);
@@ -102,7 +106,6 @@ public class Flip {
             Position pos=bomblist.removeLast();
             list.addAll(flipbomb(pos,Board));
         }
-        System.out.println();
         return list;
     }
 

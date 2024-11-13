@@ -16,4 +16,8 @@ public class Position {
         return Col;
     }
 
+    public String toString(){
+        return (" ("+Row+","+col()+")");
+    }
+
 }
