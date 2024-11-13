@@ -40,8 +40,10 @@ public class flip2 {
 
     public static int flips(List<Disc> d) {
         int count = 0;
-        while (!d.isEmpty()) {
+        int i=0;
+        while (!d.isEmpty()&& i!=d.size()) {
             count++;
+            i++;
         }
         return count;
     }
