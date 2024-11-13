@@ -4,7 +4,6 @@ import java.util.List;
 public class flip2 {
     // הוספתי את זה |
     public static List<Disc> directflips(Position a, int directrow, int directcol, Player player, int BoardSize, Disc[][] Board) {
-        int flips = 0;
         List<Disc> d = new ArrayList<>();
         int r = a.row() + directrow;
         int c = a.col() + directcol;
@@ -23,10 +22,10 @@ public class flip2 {
                     } else {
                         if (Board[r][c].getType().equals("\uD83D\uDCA3") && Board[r][c].getOwner() != player) {
                             if (!d.contains(Board[r][c])) {
+                                d.add(Board[r][c]);
                                 List<Disc> n = new ArrayList<>();
-                                n.addAll(allsides(new Position(r, c), BoardSize, Board, r, c));
+                                n.addAll(allsides(new Position(r, c), BoardSize, Board));
                                 d.addAll(n);
-                                flips += n.size();
                                 r += directrow;
                                 c += directcol;
                             }
@@ -175,7 +174,7 @@ public class flip2 {
         return count;
     }
 //זה הוספתי מפה והלאה
-    public static List<Disc> allsides(Position pos, int Boardsize, Disc[][] Board, int directrow, int directcol) {
+    public static List<Disc> allsides(Position pos, int Boardsize, Disc[][] Board) {
         List<Disc> sides = new ArrayList<>();
         int[][] directions = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}, {1, 1}, {1, -1}, {-1, -1}, {-1, 1}};
         for (int i = 0; i < directions.length; i++) {
