@@ -37,41 +37,35 @@ public class flip2 {
         }
         return d;
     }
-    public static int flips(List<Disc> d){
-        int count=0;
-        while(!d.isEmpty()){
+
+    public static int flips(List<Disc> d) {
+        int count = 0;
+        while (!d.isEmpty()) {
             count++;
         }
         return count;
+    }
+
+    private static List<Disc> ntf(List<Disc> d, Player player,Player firstplayer, Player secondplayer,
+                               boolean IsfirstPlayerTurn) {
+       List<Disc> newd= new ArrayList<>();
+        Player p;
+        if (IsfirstPlayerTurn)
+            p = firstplayer;
+        else
+            p = secondplayer;
+        for (int i = 0; i < d.size(); i++) {
+           d.get(i).setOwner(p);
+            newd.add(d.get(i));
+        }
+        return newd;
     }
 
 
     //function determines whether a move would result in any opponent discs
     // being flipped in a specific direction on the board.
     //לא נגעתי בזה
-    private static boolean needtoflip(Position a, int directrow, int directcol, Player player,
-                                      int BoardSize, Disc[][] Board) {
-        int flips = 0;
-        int r = a.row() + directrow;
-        int c = a.col() + directcol;
-        while ((r < BoardSize && c < BoardSize) && (r >= 0 && c >= 0)) {
-            if (Board[r][c] == null)
-                return false;
-            if (Board[r][c].getOwner() != player) {
-                flips++;
-                r += directrow;
-                c += directcol;
-            } else {
-                if (flips > 0) {
-                    return true;
-                }
-                return false;
 
-            }
-
-        }
-        return false;
-    }
     /**
     public static List<Disc> flipaftermove(List<Disc> d,Player firstplayer, Player secondplayer, boolean IsfirstPlayerTurn){
         Player p;
@@ -103,7 +97,7 @@ public class flip2 {
             p = secondplayer;
         int[][] directions = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}, {1, 1}, {1, -1}, {-1, -1}, {-1, 1}};
         for (int i = 0; i < 8; i++) {
-            if (needtoflip(a, directions[i][0], directions[i][1], p, Board.length, Board)) {
+            if (ntf(a, directions[i][0], directions[i][1], p, Board.length, Board)) {
                 int r = a.row() + directions[i][0];
                 int c = a.col() + directions[i][1];
                 while (Board[r][c].getOwner() != p) {
@@ -195,5 +189,6 @@ public class flip2 {
         return false;
     }
 }
+
 
 
