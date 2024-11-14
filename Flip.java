@@ -143,7 +143,7 @@ public class Flip {
                     if (Board[r][c].getType().equals("⬤")) {
                         count++;
                     }
-                    if (Board[r][c].getType().equals("\uD83D\uDCA3") &&!(Board[r][c].getOwner()!=player)) {
+                    if (Board[r][c].getType().equals("\uD83D\uDCA3")){
                             count += countBombflips(new Position(r, c), player,BoardSize, Board, bomblist) + 1;
                             System.out.println("DEBUG"+ bomblist.size());
                         }
@@ -154,4 +154,42 @@ public class Flip {
 
         return count;
     }
-}
+
+    private static void CountBombsFlips(Position pos,Player player,int BoardSize, Disc[][]Board, List <Disc> flipped) {
+        int[][] directions = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}, {1, 1}, {1, -1}, {-1, -1}, {-1, 1}};
+        for (int i = 0; i < 8; i++) {
+            int r = pos.row() + directions[i][0];
+            int c = pos.col() + directions[i][1];
+            if ((r < BoardSize && c < BoardSize) && (r >= 0 && c >= 0)) {
+                if (Board[r][c] != null) {
+                    if (Board[r][c].getOwner() != player) {
+                        if (Board[r][c].getType().equals("⬤")) {
+                            if (!flipped.contains(Board[r][c])) {
+                                flipped.add(Board[r][c]);
+                            }
+                        }
+                        if (Board[r][c].getType().equals("\uD83D\uDCA3")) {
+                            if (!flipped.contains(Board[r][c])) {
+                                flipped.add(Board[r][c]);
+                                CountBombsFlips(new Position(r, c), player, BoardSize, Board, flipped);
+
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+
+    private static int CountBombFlips(Position pos,Player player,int BoardSize, Disc[][]Board){
+        List<Disc>flipped=new ArrayList<>();
+        CountBombsFlips(pos,player,BoardSize,Board,flipped);
+        return flipped.size();
+    }
+
+    private static void CountFlips(Position pos,Player player,int BoardSize, Disc[][]Board, List <Disc> flipped){
+
+
+    }
+    }
