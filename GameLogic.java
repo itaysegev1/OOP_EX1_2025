@@ -1,7 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
-
+// this class is the main one in our game, we implemented from PlayableLogic
+// so we got all the functions and added some of our own
 public class GameLogic implements PlayableLogic {
 
     private final int BoardSize = 8;
@@ -20,6 +21,12 @@ public class GameLogic implements PlayableLogic {
 
     }
 
+    /***
+     * General Explanation: Attempt to locate a disc on the game board
+     * @param a The position for locating a new disc on the board.
+     * @param disc
+     * @return true if the move is valid and successful, false otherwise.
+     */
     @Override
     public boolean locate_disc(Position a, Disc disc) {
         if (Board[a.row()][a.col()] == null && Flip.isinvalid(a,ValidMoves)) {
@@ -45,6 +52,12 @@ public class GameLogic implements PlayableLogic {
         System.out.println();
         return false;
     }
+
+    /***
+     * General Explanation:Get the disc located at a given position on the game board.
+     * @param position The position for which to retrieve the disc.
+     * @return a specific disc
+     */
 
     @Override
     public Disc getDiscAtPosition(Position position) {
