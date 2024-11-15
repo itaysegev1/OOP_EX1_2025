@@ -39,8 +39,8 @@ public class GameLogic implements PlayableLogic {
             else{
                 System.out.println("Player 2 played a " + disc.getType() + " in a "+new Position(a.row(),a.col()).toString());
             }
-            //move.setflips(Flip.flipaftermove(a,Board,firstplayer,secondplayer,IsfirstPlayerTurn));
-             move.setflips(flip2.fliipedaftermove(a,Board,firstplayer,secondplayer,IsfirstPlayerTurn,BoardSize));
+           // move.setflips(Flip.flipaftermove(a,Board,firstplayer,secondplayer,IsfirstPlayerTurn));
+            move.setflips(flip2.mainflip(a,Board,firstplayer,secondplayer,IsfirstPlayerTurn,BoardSize));
             if (isFirstPlayerTurn()) {
 
                 IsfirstPlayerTurn = false;
@@ -97,7 +97,9 @@ public class GameLogic implements PlayableLogic {
             p = secondplayer;
         int[][] directions = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}, {1, 1}, {1, -1}, {-1, -1}, {-1, 1}};
         for (int i = 0; i < 8; i++) {
-            total += Flip.directflips(a, directions[i][0], directions[i][1], p,BoardSize,Board);
+             total += flip2.countflip(a, Board, firstplayer,secondplayer,isFirstPlayerTurn(),getBoardSize());
+
+                    //directions[i][0], directions[i][1], p,BoardSize);
         }
         return total;
     }
